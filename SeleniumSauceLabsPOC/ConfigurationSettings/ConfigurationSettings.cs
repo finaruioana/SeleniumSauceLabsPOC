@@ -7,12 +7,12 @@ namespace SeleniumSauceLabsPOC.ConfigurationSettings
         public ConfigurationSettings()
         {
             TargetBrowser = ConfigurationManager.AppSettings["TargetBrowser"];
-            TargetOs = ConfigurationManager.AppSettings["TargetOS"];
-            TargetDevice = ConfigurationManager.AppSettings["TargetDevice"];
+            TargetBrowserVersion = ConfigurationManager.AppSettings["TargetBrowserVersion"];
+            TargetPlatform = ConfigurationManager.AppSettings["TargetPlatform"];
 
         }
         public string TargetBrowser { get; }
-        public string TargetOs { get; }
-        public string TargetDevice { get; }
+        public string TargetBrowserVersion { get; }
+        public string TargetPlatform { get; }
     }
 }

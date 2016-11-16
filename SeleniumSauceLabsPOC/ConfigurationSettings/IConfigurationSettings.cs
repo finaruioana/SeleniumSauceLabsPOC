@@ -3,7 +3,7 @@
     public interface IConfigurationSettings
     {
         string TargetBrowser { get; }
-        string TargetOs { get; }
-        string TargetDevice { get; }
+        string TargetBrowserVersion { get; }
+        string TargetPlatform{ get; }
     }
 }
