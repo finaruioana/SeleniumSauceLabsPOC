@@ -16,6 +16,7 @@ namespace SeleniumSauceLabsPOC.Steps
         [AfterScenario]
         public void TearDown()
         {
+            _browser.Quit();
             _browser.Dispose();
         }
 

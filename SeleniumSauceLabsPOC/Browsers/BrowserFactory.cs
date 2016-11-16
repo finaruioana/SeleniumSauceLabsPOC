@@ -7,23 +7,24 @@ namespace SeleniumSauceLabsPOC.Browsers
 {
     public class BrowserFactory
     {
-        private const string AccessKey = "cb525b27-a0ec-47c9-b3c6";
-        private const string Username = "ioanafinaru";
-        private const string Url = "https://ondemand.saucelabs.com:443/wd/hub";
 
-
+        //SauceLabs
         public static IWebDriver Get(string browser, string browserVersion, string platform)
         {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-           
+            const string accessKey = "<key>";
+            const string username = "<username>";
+            const string url = "https://ondemand.saucelabs.com:443/wd/hub";
+            var capabilities = new DesiredCapabilities();
+
             capabilities.SetCapability(CapabilityType.BrowserName, browser);
             capabilities.SetCapability(CapabilityType.Platform, platform);
             capabilities.SetCapability(CapabilityType.Version, browserVersion);
-            capabilities.SetCapability("username", Username);
-            capabilities.SetCapability("accessKey", AccessKey);
-            capabilities.SetCapability("name",ScenarioContext.Current.ScenarioInfo.Title);
+            capabilities.SetCapability("name", ScenarioContext.Current.ScenarioInfo.Title);
 
-            return new RemoteWebDriver(new Uri(Url), capabilities);
+            capabilities.SetCapability("username", username);
+            capabilities.SetCapability("accessKey", accessKey);
+
+            return new RemoteWebDriver(new Uri(url), capabilities);
         }
     }
 }
