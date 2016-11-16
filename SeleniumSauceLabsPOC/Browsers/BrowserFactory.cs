@@ -12,10 +12,10 @@ namespace SeleniumSauceLabsPOC.Browsers
         private static string _url= "http://" + _username + ":" + _accessKey + "@ondemand.saucelabs.com:80/wd/hub";
 
 
-        public static IWebDriver Get(string browserName, string platform, string platformVersion)
+        public static IWebDriver Get(string browser, string browserVersion, string platform)
         {
             DesiredCapabilities capabilities;
-            switch (browserName)
+            switch (browser)
             {
                 case "Chrome":
                     capabilities = DesiredCapabilities.Chrome();
@@ -26,7 +26,7 @@ namespace SeleniumSauceLabsPOC.Browsers
                 default: throw new Exception("RegisterBrowser - Browser not available");
             }
             capabilities.SetCapability("platform", platform);
-            capabilities.SetCapability("version", platformVersion);
+            capabilities.SetCapability("version", browserVersion);
 
             return new RemoteWebDriver(new Uri(_url), capabilities);
         }
