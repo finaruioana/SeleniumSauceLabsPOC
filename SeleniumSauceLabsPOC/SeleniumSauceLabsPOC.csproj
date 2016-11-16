@@ -49,12 +49,21 @@
   <ItemGroup>
     <Compile Include="ConfigurationSettings\ConfigurationSettings.cs" />
     <Compile Include="ConfigurationSettings\IConfigurationSettings.cs" />
+    <Compile Include="Features\SampleTest.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SampleTest.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\AutofacConfig.cs" />
     <Compile Include="Support\TestDependencies.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\SampleTest.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SampleTest.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
