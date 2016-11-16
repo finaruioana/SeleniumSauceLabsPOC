@@ -1,0 +1,98 @@
+# master 
+-
+  branches:
+    only:
+      - master
+
+  skip_tags: true
+  
+  version: 1.0.0
+  image: Visual Studio 2015
+
+  assembly_info:
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
+    file: AssemblyInfo.*
+    patch: true
+
+  before_build:
+    - nuget restore
+
+  build:
+    parallel: true 
+    verbosity: quiet
+  
+  test:
+    assemblies: 
+  
+  configuration: Release
+   
+  init:
+    # display remote desktop details in build window 
+    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    
+  cache:
+    - packages -> **\packages.config
+    - C:\downloads -> appveyor.yml
+  
+  install:
+    # download folder
+    - ps: if (!(Test-Path -path "C:\downloads")) { New-Item -ItemType Directory -Force -Path C:\downloads }
+        
+  on_failure:
+    - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"
+ 
+# everything except master
+-
+  branches:
+    except:
+      - master
+
+  skip_tags: true
+
+  version: 1.0.0.{build}-{branch}
+  image: Visual Studio 2015
+
+  assembly_info:
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
+    file: AssemblyInfo.*
+    patch: true
+
+  before_build:
+    - nuget restore
+
+  build:
+    parallel: true
+    verbosity: quiet
+
+  after_build:
+    - ps: 7z a "$($env:APPVEYOR_PROJECT_NAME).zip" -r .\$($env:APPVEYOR_PROJECT_NAME)\bin\$($env:CONFIGURATION)\*
+    - ps: appveyor PushArtifact "$($env:APPVEYOR_PROJECT_NAME).zip" -DeploymentName "$($env:APPVEYOR_PROJECT_NAME)"
+
+  test:
+    assemblies: 
+
+  configuration:
+    - Release
+        
+  init:
+    # display remote desktop details in build window 
+    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  
+  # build cache to preserve files/folders between builds
+  cache:
+    # cache the packages folder until a package.config file is modified
+    - packages -> **\packages.config
+    # cache the downloads until the appveyor.yml file is modified
+    - C:\downloads -> appveyor.yml
+  
+  install:
+    # download folder
+    - ps: if (!(Test-Path -path "C:\downloads")) { New-Item -ItemType Directory -Force -Path C:\downloads }
+     
+  on_failure:
+    - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)-$(Get-Date -format HHmmss)-failed"
+ 
