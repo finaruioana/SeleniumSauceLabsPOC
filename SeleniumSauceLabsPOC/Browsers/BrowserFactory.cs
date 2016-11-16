@@ -1,34 +1,29 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
+using TechTalk.SpecFlow;
 
 namespace SeleniumSauceLabsPOC.Browsers
 {
     public class BrowserFactory
     {
-
-        private static string _accessKey = "cb525b27-a0ec-47c9-b3c6-47a4ceb37ca5";
-        private static string _username = "ioanafinaru";
-        private static string _url= "http://" + _username + ":" + _accessKey + "@ondemand.saucelabs.com:80/wd/hub";
+        private const string AccessKey = "cb525b27-a0ec-47c9-b3c6";
+        private const string Username = "ioanafinaru";
+        private const string Url = "https://ondemand.saucelabs.com:443/wd/hub";
 
 
         public static IWebDriver Get(string browser, string browserVersion, string platform)
         {
-            DesiredCapabilities capabilities;
-            switch (browser)
-            {
-                case "Chrome":
-                    capabilities = DesiredCapabilities.Chrome();
-                    break;
-                case "Firefox":
-                    capabilities = DesiredCapabilities.Firefox();
-                    break;
-                default: throw new Exception("RegisterBrowser - Browser not available");
-            }
-            capabilities.SetCapability("platform", platform);
-            capabilities.SetCapability("version", browserVersion);
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+           
+            capabilities.SetCapability(CapabilityType.BrowserName, browser);
+            capabilities.SetCapability(CapabilityType.Platform, platform);
+            capabilities.SetCapability(CapabilityType.Version, browserVersion);
+            capabilities.SetCapability("username", Username);
+            capabilities.SetCapability("accessKey", AccessKey);
+            capabilities.SetCapability("name",ScenarioContext.Current.ScenarioInfo.Title);
 
-            return new RemoteWebDriver(new Uri(_url), capabilities);
+            return new RemoteWebDriver(new Uri(Url), capabilities);
         }
     }
 }
