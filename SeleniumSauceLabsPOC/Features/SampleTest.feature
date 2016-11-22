@@ -4,6 +4,7 @@
 	I want to be able to open a browser session
 
 @mytag
-Scenario: Go to Google
-	Given I go to "https://google.co.uk"
-	Then the page should be successfully loaded
+Scenario: Can find search results
+	Given I am on the google page
+	When I search for "BrowserStack"
+	Then I should see title "BrowserStack - Google Search"

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
@@ -14,19 +14,25 @@ namespace SeleniumSauceLabsPOC.Steps
         {
             _browser = browser;
         }
-        [Given(@"I go to ""(.*)""")]
-        public void GivenIGoTo(string p0)
+        [Given(@"I am on the google page")]
+        public void GivenIAmOnTheGooglePage()
         {
-            _browser.Navigate().GoToUrl(p0);
-            IWebElement query = _browser.FindElement(By.Name("q"));
-            query.SendKeys("Browserstack");
-            query.Submit();
-        }
-        [Then(@"the page should be successfully loaded")]
-        public void ThenThePageShouldBeSuccessfullyLoaded()
-        {
-           Assert.That(_browser.Title, Is.EqualTo("Google"));
+            _browser.Navigate().GoToUrl("https://www.google.com/");
         }
 
+        [When(@"I search for ""(.*)""")]
+        public void WhenISearchFor(string keyword)
+        {
+            var q = _browser.FindElement(By.Name("q"));
+            q.SendKeys(keyword);
+            q.Submit();
+        }
+
+        [Then(@"I should see title ""(.*)""")]
+        public void ThenIShouldSeeTitle(string title)
+        {
+            Thread.Sleep(5000);
+            Assert.That(_browser.Title, Is.EqualTo(title));
+        }
     }
 }

@@ -8,19 +8,20 @@ namespace SeleniumSauceLabsPOC.Browsers
     public class BrowserFactory
     {
 
-        //SauceLabs
         public static IWebDriver Get(string browser, string browserVersion, string platform)
         {
-            const string accessKey = "<key>";
-            const string username = "<username>";
+            var accessKey = Environment.GetEnvironmentVariable("SAUCE_ACCESS_KEY");
+            var  username = Environment.GetEnvironmentVariable("SAUCE_USERNAME");
             const string url = "https://ondemand.saucelabs.com:443/wd/hub";
             var capabilities = new DesiredCapabilities();
 
             capabilities.SetCapability(CapabilityType.BrowserName, browser);
             capabilities.SetCapability(CapabilityType.Platform, platform);
             capabilities.SetCapability(CapabilityType.Version, browserVersion);
-            capabilities.SetCapability("name", ScenarioContext.Current.ScenarioInfo.Title);
 
+            capabilities.SetCapability("name", ScenarioContext.Current.ScenarioInfo.Title);
+            capabilities.SetCapability("build","1.0.0");
+            
             capabilities.SetCapability("username", username);
             capabilities.SetCapability("accessKey", accessKey);
 
