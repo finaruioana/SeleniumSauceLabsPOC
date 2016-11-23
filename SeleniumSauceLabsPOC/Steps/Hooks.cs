@@ -16,8 +16,19 @@ namespace SeleniumSauceLabsPOC.Steps
         [AfterScenario]
         public void TearDown()
         {
-            _browser.Quit();
-            _browser.Dispose();
+            var passed = ScenarioContext.Current.TestError == null;
+            try
+            {
+                // Logs the result to Sauce Labs
+                ((IJavaScriptExecutor)_browser).ExecuteScript("sauce:job-result=" + (passed ? "passed" : "failed"));
+            }
+            finally
+            {
+                // Terminates the remote webdriver session
+                _browser.Quit();
+                _browser.Dispose();
+            }
+     
         }
 
     }
