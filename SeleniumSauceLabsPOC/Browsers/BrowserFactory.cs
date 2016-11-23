@@ -1,31 +1,26 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
+using SeleniumSauceLabsPOC.ConfigurationSettings;
 using TechTalk.SpecFlow;
 
 namespace SeleniumSauceLabsPOC.Browsers
 {
     public class BrowserFactory
     {
-
-        public static IWebDriver Get(string browser, string browserVersion, string platform)
+        public static IWebDriver Get(IConfigurationSettings settings)
         {
-            var accessKey = Environment.GetEnvironmentVariable("SAUCE_ACCESS_KEY");
-            var  username = Environment.GetEnvironmentVariable("SAUCE_USERNAME");
-            const string url = "https://ondemand.saucelabs.com:443/wd/hub";
-            var capabilities = new DesiredCapabilities();
-
-            capabilities.SetCapability(CapabilityType.BrowserName, browser);
-            capabilities.SetCapability(CapabilityType.Platform, platform);
-            capabilities.SetCapability(CapabilityType.Version, browserVersion);
-
+           var capabilities = new DesiredCapabilities();
+            if (settings.Capabilities != null)
+                foreach (var key in settings.Capabilities.AllKeys)
+                {
+                    capabilities.SetCapability(key, settings.Capabilities[key]);
+                }
             capabilities.SetCapability("name", ScenarioContext.Current.ScenarioInfo.Title);
-            capabilities.SetCapability("build","1.0.0");
-            
-            capabilities.SetCapability("username", username);
-            capabilities.SetCapability("accessKey", accessKey);
+            capabilities.SetCapability("username", settings.Username);
+            capabilities.SetCapability("accessKey", settings.Key);
 
-            return new RemoteWebDriver(new Uri(url), capabilities);
+            return new RemoteWebDriver(new Uri(settings.Server), capabilities);
         }
     }
 }

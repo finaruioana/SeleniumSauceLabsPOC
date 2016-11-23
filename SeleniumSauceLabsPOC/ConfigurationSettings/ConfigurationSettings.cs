@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections.Specialized;
+using System.Configuration;
 
 namespace SeleniumSauceLabsPOC.ConfigurationSettings
 {
@@ -6,13 +8,17 @@ namespace SeleniumSauceLabsPOC.ConfigurationSettings
     {
         public ConfigurationSettings()
         {
-            TargetBrowser = ConfigurationManager.AppSettings["TargetBrowser"];
-            TargetBrowserVersion = ConfigurationManager.AppSettings["TargetBrowserVersion"];
-            TargetPlatform = ConfigurationManager.AppSettings["TargetPlatform"];
-
+          Capabilities = ConfigurationManager.GetSection("capabilities") as NameValueCollection;
+            Username = Environment.GetEnvironmentVariable("SAUCE_USERNAME") ??
+                          ConfigurationManager.AppSettings.Get("user");
+            Key = Environment.GetEnvironmentVariable("SAUCE_ACCESS_KEY") ??
+                           ConfigurationManager.AppSettings.Get("key");
+            Server = ConfigurationManager.AppSettings.Get("server");
         }
-        public string TargetBrowser { get; }
-        public string TargetBrowserVersion { get; }
-        public string TargetPlatform { get; }
+     
+        public NameValueCollection Capabilities { get; }
+        public string Username { get; }
+        public string Key { get; }
+        public string Server { get; }
     }
 }

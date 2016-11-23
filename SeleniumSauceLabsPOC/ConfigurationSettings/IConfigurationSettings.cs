@@ -1,9 +1,12 @@
-﻿namespace SeleniumSauceLabsPOC.ConfigurationSettings
+﻿using System.Collections.Specialized;
+
+namespace SeleniumSauceLabsPOC.ConfigurationSettings
 {
     public interface IConfigurationSettings
     {
-        string TargetBrowser { get; }
-        string TargetBrowserVersion { get; }
-        string TargetPlatform{ get; }
+        NameValueCollection Capabilities { get; }
+        string Username { get; }
+        string Key { get; }
+        string Server { get; }
     }
 }

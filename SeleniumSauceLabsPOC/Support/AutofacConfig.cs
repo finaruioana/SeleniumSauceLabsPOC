@@ -12,8 +12,7 @@ namespace SeleniumSauceLabsPOC.Support
             IConfigurationSettings configurationSettings = new ConfigurationSettings.ConfigurationSettings();
             builder.Register(c => configurationSettings).As<IConfigurationSettings>().SingleInstance();
 
-            var browser = BrowserFactory.Get(configurationSettings.TargetBrowser,
-                configurationSettings.TargetBrowserVersion, configurationSettings.TargetPlatform);
+            var browser = BrowserFactory.Get(configurationSettings);
             builder.Register(c => browser).As<IWebDriver>().SingleInstance();
         }
     }
