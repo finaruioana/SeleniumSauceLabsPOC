@@ -14,15 +14,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AndroidSamsungGalaxyS4Emulator|Any CPU = AndroidSamsungGalaxyS4Emulator|Any CPU
+		AndroidSamsungGalaxyS7Device|Any CPU = AndroidSamsungGalaxyS7Device|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		iOSiPhone7Simulator|Any CPU = iOSiPhone7Simulator|Any CPU
 		OSXElCapitanSafari|Any CPU = OSXElCapitanSafari|Any CPU
 		Release|Any CPU = Release|Any CPU
 		Win10Chrome|Any CPU = Win10Chrome|Any CPU
 		Win10Firefox|Any CPU = Win10Firefox|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00F47A4E-A620-4016-92C6-C4C475E784C3}.AndroidSamsungGalaxyS4Emulator|Any CPU.ActiveCfg = AndroidSamsungGalaxyS4Emulator|Any CPU
+		{00F47A4E-A620-4016-92C6-C4C475E784C3}.AndroidSamsungGalaxyS4Emulator|Any CPU.Build.0 = AndroidSamsungGalaxyS4Emulator|Any CPU
+		{00F47A4E-A620-4016-92C6-C4C475E784C3}.AndroidSamsungGalaxyS7Device|Any CPU.ActiveCfg = AndroidSamsungGalaxyS7Device|Any CPU
+		{00F47A4E-A620-4016-92C6-C4C475E784C3}.AndroidSamsungGalaxyS7Device|Any CPU.Build.0 = AndroidSamsungGalaxyS7Device|Any CPU
 		{00F47A4E-A620-4016-92C6-C4C475E784C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{00F47A4E-A620-4016-92C6-C4C475E784C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F47A4E-A620-4016-92C6-C4C475E784C3}.iOSiPhone7Simulator|Any CPU.ActiveCfg = iOSiPhone7Simulator|Any CPU
+		{00F47A4E-A620-4016-92C6-C4C475E784C3}.iOSiPhone7Simulator|Any CPU.Build.0 = iOSiPhone7Simulator|Any CPU
 		{00F47A4E-A620-4016-92C6-C4C475E784C3}.OSXElCapitanSafari|Any CPU.ActiveCfg = OSXElCapitanSafari|Any CPU
 		{00F47A4E-A620-4016-92C6-C4C475E784C3}.OSXElCapitanSafari|Any CPU.Build.0 = OSXElCapitanSafari|Any CPU
 		{00F47A4E-A620-4016-92C6-C4C475E784C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
